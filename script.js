@@ -1,6 +1,6 @@
 $(document).ready(function() {
-  const apiRoot = 'https://protected-anchorage-34068.herokuapp.com/v1/task/';
-  const trelloApiRoot = 'https://protected-anchorage-34068.herokuapp.com/v1/trello/';
+  const apiRoot = 'http://localhost:8080/v1/task/';
+  const trelloApiRoot = 'http://localhost:8080/v1/trello/';
   const datatableRowTemplate = $('[data-datatable-row-template]').children()[0];
   const $tasksContainer = $('[data-tasks-container]');
 
@@ -139,7 +139,11 @@ $(document).ready(function() {
         title: taskTitle,
         content: taskContent
       }),
-      success: getAllTasks
+      complete: function(data) {
+        if(data.status === 200) {
+          getAllTasks();
+        }
+      }
     });
   }
 
